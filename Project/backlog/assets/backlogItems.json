@@ -1,0 +1,107 @@
+[
+  {
+    "id": "1",
+    "title": "Crear pantalla de login",
+    "description": "Diseñar e implementar la pantalla de inicio de sesión.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "2",
+    "title": "Agregar validación de email",
+    "description": "Validar el formato del email en el formulario de registro.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "3",
+    "title": "Conectar API de usuarios",
+    "description": "Integrar la API para obtener y registrar usuarios.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "4",
+    "title": "Mostrar lista de tareas",
+    "description": "Crear componente para mostrar las tareas del backlog.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "5",
+    "title": "Agregar botón de logout",
+    "description": "Permitir al usuario cerrar sesión desde la app.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "6",
+    "title": "Crear pantalla de login",
+    "description": "Diseñar e implementar la pantalla de inicio de sesión.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "7",
+    "title": "Agregar validación de email",
+    "description": "Validar el formato del email en el formulario de registro.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "8",
+    "title": "Conectar API de usuarios",
+    "description": "Integrar la API para obtener y registrar usuarios.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "9",
+    "title": "Mostrar lista de tareas",
+    "description": "Crear componente para mostrar las tareas del backlog.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "10",
+    "title": "Agregar botón de logout",
+    "description": "Permitir al usuario cerrar sesión desde la app.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "11",
+    "title": "Crear pantalla de login",
+    "description": "Diseñar e implementar la pantalla de inicio de sesión.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "12",
+    "title": "Agregar validación de email",
+    "description": "Validar el formato del email en el formulario de registro.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "13",
+    "title": "Conectar API de usuarios",
+    "description": "Integrar la API para obtener y registrar usuarios.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "14",
+    "title": "Mostrar lista de tareas",
+    "description": "Crear componente para mostrar las tareas del backlog.",
+    "isOpen": false,
+    "isChecked": false
+  },
+  {
+    "id": "15",
+    "title": "Agregar botón de logout",
+    "description": "Permitir al usuario cerrar sesión desde la app.",
+    "isOpen": false,
+    "isChecked": false
+  }
+]
