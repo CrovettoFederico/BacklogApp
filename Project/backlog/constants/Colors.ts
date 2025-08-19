@@ -18,7 +18,10 @@ export const Colors = {
     backlogBackground: '#F5F5F5',
     backlogBorder: '#E5E5E5',
     backlogContentBackground: "#E5E5E5",
-    backgroundInputsColor: "#bcb9d7ff"
+    backgroundInputsColor: "#bcb9d7ff",    
+    messageBackgroundInfo: "#bdc5c7ff",
+    messageBackgroundError: "#b27475ff",
+    messageBackgroundSuccess: "#a1cd8bff"
   },
   dark: {
     text: '#ECEDEE',
@@ -31,6 +34,9 @@ export const Colors = {
     backlogBackground: '#206283ff',
     backlogBorder: '#282a2bff',
     backlogContentBackground: "#26546aff",
-    backgroundInputsColor: "#2a2936ff"
+    backgroundInputsColor: "#2a2936ff",
+    messageBackgroundInfo: "#6b6f70ff",
+    messageBackgroundError: "#783637ff",
+    messageBackgroundSuccess: "#436632ff"
   },
 };

@@ -1,15 +1,20 @@
 import BacklogItem from '@/components/BacklogItem';
 import Header from '@/components/Header';
+import Message from '@/components/Message';
 import { useBacklogState } from '@/hooks/useBacklogState';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
 export default function HomeScreen() { 
 
   const {
     items,
-    handleRemoveItem
+    handleRemoveItem,
+    result,
+    handleCloseMessage,
+    handleUpdateItem
   } = useBacklogState();
     
 
@@ -17,22 +22,35 @@ export default function HomeScreen() {
     <SafeAreaView style={{display: "flex", flex: 1, backgroundColor: useThemeColor({},"indexHeaderBackground")}}>
       <ScrollView style={{display: "flex", flex: 1, backgroundColor: useThemeColor({},"mainBackground")}}>
         <Header Text='Tasks Completed'></Header>
-        <View style={{backgroundColor: useThemeColor({},"mainBackground")}}>
-          {items?.filter(i=> i.isChecked).map((item, index) => (
-            <Animated.View key={item.id} layout={LinearTransition} >
-            <BacklogItem
-              key={item.id}
-              item = {item}
-              onValueChange={(value) => {
-                handleRemoveItem(item, value);
-              }}
-              isChecked = {item.isChecked ?? false}
-              isDisabled={false}
-            />
-            </Animated.View>
-          ))}
-        </View>
+        <GestureHandlerRootView>
+          <View style={{backgroundColor: useThemeColor({},"mainBackground")}}>
+            
+            {items?.filter(i=> i.isChecked).map((item, index) => (
+              <Animated.View key={item.id} layout={LinearTransition} >
+              <BacklogItem
+                onSwipeLeft={() => handleRemoveItem(item)}
+                key={item.id}
+                item = {item}
+                onValueChange={(value) => {
+                  handleUpdateItem(item, value);
+                }}
+                isChecked = {item.isChecked ?? false}
+                isDisabled={false}
+              />
+              </Animated.View>
+            ))}
+            
+          </View>
+        </GestureHandlerRootView>
       </ScrollView>
+      {result?.isShown && (
+        <Message
+          type={result.result}
+          text={result.message}
+          onClose={() => handleCloseMessage()}
+          duration={5000}
+        />
+      )}
     </SafeAreaView>
     
   );

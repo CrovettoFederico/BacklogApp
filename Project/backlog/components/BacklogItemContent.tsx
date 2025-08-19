@@ -23,8 +23,8 @@ export default function BacklogItemContent(props: BacklogItemContentProps) {
             <ThemedText>{props.item.description}</ThemedText>
             <View style={styles.containerFechas}>
               <ThemedText style={styles.Creada}>Creada: {formatDate(props.item.createdDate)}</ThemedText>
-              {props.item.createdDate != undefined && (
-                  <ThemedText style={styles.Vence}>Vence: {formatDate(props.item.createdDate!)}</ThemedText>
+              {props.item.deadlineDate != undefined && (
+                  <ThemedText style={styles.Vence}>Vence: {formatDate(props.item.deadlineDate!)}</ThemedText>
               )}
             </View>
         </View>
@@ -32,6 +32,10 @@ export default function BacklogItemContent(props: BacklogItemContentProps) {
 }
 
 const formatDate = (date: Date): string => {
+  try{
+    if(!date)
+      return "";
+
     const formatted = date!.toLocaleString("ar-es");
     if (formatted.includes("T")) {
         return formatted.split("T")[0];
@@ -43,6 +47,9 @@ const formatDate = (date: Date): string => {
         return `${splitted[2]}-${splitted[1].length === 1 ? '0' + splitted[1] : splitted[1]}-${splitted[0].length === 1 ? '0' + splitted[0] : splitted[0]}`;
     }
     return formatted;
+  }catch{
+    return "";
+  }
 }
 
 const styles = StyleSheet.create({

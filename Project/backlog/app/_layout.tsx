@@ -7,9 +7,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Context } from '@/services/context';
 
-export const unstable_settings = {
-  initialRouteName: 'index',
-};
+
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

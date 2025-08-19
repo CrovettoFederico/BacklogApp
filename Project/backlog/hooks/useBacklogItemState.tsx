@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { Animated } from 'react-native';
+import { useEffect, useState } from 'react';
+import { runOnJS, useSharedValue, withTiming } from 'react-native-reanimated';
 
 type BacklogItemState = {
     isChecked: boolean,
@@ -9,22 +9,19 @@ type BacklogItemState = {
 export function useBacklogItemState(_isChecked?: boolean) {
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setChecked] = useState(_isChecked ?? false);
-    const refDissappear = useRef(new Animated.Value(1)).current;
+    const refDissappear = useSharedValue(1);
     
     useEffect(()=>{
         
     },[]);
 
     const handleChecked = (checked: boolean, onFadeOutEnd? : (checked: boolean) => void)=>{
-        setChecked(checked);        
-        Animated.timing(refDissappear, {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: true,
-        }).start(() => {
-            if (onFadeOutEnd) onFadeOutEnd(checked);
-        });
-        
+        setChecked(checked);     
+        refDissappear.value = withTiming(0, { duration: 300 }, (finished) => {
+            if (finished && onFadeOutEnd){
+                runOnJS(onFadeOutEnd)(checked);
+            }
+        });        
     };
 
     const setIsChecked = (checked: boolean) => {
@@ -41,7 +38,6 @@ export function useBacklogItemState(_isChecked?: boolean) {
         isChecked,
         refDissappear,        
         handleChecked,
-        handleOpen,
-        setIsChecked
+        handleOpen 
     };
 }

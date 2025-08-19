@@ -2,6 +2,7 @@ import { useAddFormState } from "@/hooks/useAddFormState";
 import React from "react";
 import { Button, StyleSheet, TextInput, View, type ViewProps } from "react-native";
 import DateTimePicker from 'react-native-ui-datepicker';
+import Message from "../Message";
 import { ThemedText } from "../ThemedText";
 
 const InputPadding = 20;
@@ -16,7 +17,9 @@ export default function AddForm(props: ViewProps) {
         defaultStyles,
         onChangeTitulo,
         onChangeDescripcion,
-        setDeadline
+        setDeadline,
+        result,
+        handleCloseMessage
     } = useAddFormState();
 
    return( 
@@ -48,6 +51,7 @@ export default function AddForm(props: ViewProps) {
                     styles={{
                         ...defaultStyles,
                     }}
+                    locale="arg-ES"
                     containerHeight={230}
                     mode="single"
                     date={deadline}
@@ -62,7 +66,16 @@ export default function AddForm(props: ViewProps) {
                 <Button onPress={() => HandleSumbitItem(titulo, descripcion, deadline)} title="Save"/>
             </View>
         </View>
-
+        {result?.isShown && (
+          <Message
+            type={result.result}
+            text={result.message}
+            onClose={() => handleCloseMessage()}
+            duration={5000}
+        />
+                      )}
+        
+        
     </View>
    );
 }
