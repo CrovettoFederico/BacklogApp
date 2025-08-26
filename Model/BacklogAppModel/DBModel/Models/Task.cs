@@ -22,6 +22,8 @@ namespace DBModel.Models {
         public DateTime? Deadline { get; set; }
         public bool IsFinished { get; set; }
         public bool isDeleted { get; set; }
+
+        [Required]
         public int UserId { get; set; }
 
         [ForeignKey("Id")]

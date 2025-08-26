@@ -7,8 +7,9 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/functions": "^4.0.0"
+    "@azure/functions": "^4.0.0",
+    "sequelize": "^6.37.7",
+    "tedious": "^18.6.1"
   },
-  "devDependencies": {},
   "main": "src/{index.js,functions/*.js}"
 }
