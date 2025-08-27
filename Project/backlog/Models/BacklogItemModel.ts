@@ -5,9 +5,9 @@ export interface IBacklogItem {
   description: string;
   isOpen: boolean;
   isChecked: boolean;
-  createdDate: Date;
-  finishedDate?: Date;
-  deadlineDate?: Date;
+  createdAt: Date;
+  finishedAt?: Date;
+  deadline?: Date;
 }
 
 export class BacklogItemModel implements IBacklogItem {
@@ -16,9 +16,9 @@ export class BacklogItemModel implements IBacklogItem {
     description: string;
     isOpen: boolean;
     isChecked: boolean;
-    createdDate: Date;
-    finishedDate?: Date;    
-    deadlineDate?: Date;
+    createdAt: Date;
+    finishedAt?: Date;    
+    deadline?: Date;
     
     constructor(item: Partial<IBacklogItem>) {
         this.id = item.id ?? "";
@@ -26,9 +26,9 @@ export class BacklogItemModel implements IBacklogItem {
         this.description = item.description ?? "";
         this.isOpen = item.isOpen ?? false;
         this.isChecked = item.isChecked ?? false;
-        this.createdDate = item.createdDate ?? new Date();
-        this.finishedDate = item.finishedDate ?? undefined;
-        this.deadlineDate = item.deadlineDate ?? undefined;
+        this.createdAt = item.createdAt ?? new Date();
+        this.finishedAt = item.finishedAt ?? undefined;
+        this.deadline = item.deadline ?? undefined;
     }
     
 }

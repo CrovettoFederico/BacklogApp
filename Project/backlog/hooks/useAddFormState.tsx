@@ -22,13 +22,13 @@ export function useAddFormState() {
             console.log(deadline);
 
             Context.getInstance().addItemToBacklog({
-                createdDate: new Date(),
+                createdAt: new Date(),
                 title: Titulo,
                 description: Descripcion,
                 id : newId.toString(),
                 isChecked: false,
                 isOpen: false,
-                deadlineDate: Deadline as Date
+                deadline: Deadline as Date
             })
             // Creo nuevo array para actualizar referencias y volver a renderizar en las otras views
             

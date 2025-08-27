@@ -14,14 +14,35 @@ app.http('BacklogApp_Status', {
     }
 });
 
-
-app.http('BacklogApp_GetTasks', {
+app.http('BacklogApp_GetAllTasks', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
-    route: "getTasks",
+    route: "getAllTasks",
     handler: async (request, context) => {
         try{
             const tasks = await Task.findAll();
+            return { 
+                status: 200,
+                jsonBody: tasks
+            };
+        }catch{
+            context.log(`Error occurred while fetching tasks: ${error.message}`);
+            return {
+                status: 500,
+                jsonBody: { error: 'Failed to fetch tasks' }
+            };
+        }
+    }
+});
+
+app.http('BacklogApp_GetTasksByUser', {
+    methods: ['GET', 'POST'],
+    authLevel: 'anonymous',
+    route: "getTasksByUser",
+    handler: async (request, context) => {
+        try{
+            const userId = request.params.userId;
+            const tasks = await Task.findAll({ where: { userId } });
             return { 
                 status: 200,
                 jsonBody: tasks
@@ -102,8 +123,6 @@ app.http('BacklogApp_PostUser', {
     }
     }
 });
-
-
 
 app.http('BacklogApp_UpdateTask', {
     methods: ['POST'],

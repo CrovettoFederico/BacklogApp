@@ -1,9 +1,10 @@
 import { IconSymbol } from '@/components/IconSymbol';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Context } from '@/services/context';
 import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, Platform, View } from 'react-native';
 
 export const unstable_settings = {
   initialRouteName: 'index',
@@ -11,6 +12,25 @@ export const unstable_settings = {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const [loadingItems, setLoadingItems] = React.useState(true);
+    
+  useEffect(() => {
+      async function fetchData() {
+        Context.getInstance().loadBacklogItemsToContext("1");
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setLoadingItems(false);
+      }
+      fetchData();
+    }, []);
+
+  if (loadingItems) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
+
 
   return (
     

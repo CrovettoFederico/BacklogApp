@@ -1,13 +1,12 @@
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { Context } from '@/services/context';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Context } from '@/services/context';
-
-
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -15,12 +14,15 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
   
-  Context.getInstance().loadBacklogItemsToContext();
+  
+
 
   if (!loaded) {
     // Async font loading only occurs in development.
     return null;
   }
+
+  
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>

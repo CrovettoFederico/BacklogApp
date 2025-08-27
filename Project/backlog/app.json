@@ -43,7 +43,15 @@
       "router": {},
       "eas": {
         "projectId": "eba1293f-b2e2-484e-82ae-342e03c8d784"
-      }
+      },
+      "ApiUrl": "https://func-backlogapp-prod.azurewebsites.net/api/",
+      "GetTasksByUser": "getTasksByUser",
+      "CreateTask": "getAllTasks",
+      "UpdateTask": "UpdateTask",
+      "PostUser": "PostUser",
+      "PostTask": "PostTask",
+      "FileName": "backlogItems.json",
+      "GoogleClientID": "994492199508-65j4cn8hb7h36aslesl4p6583hpbg97j.apps.googleusercontent.com"      
     }
   }
 }

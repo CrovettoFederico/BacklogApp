@@ -11,8 +11,8 @@ export class ItemsManager{
 
     }
 
-   async loadBacklogItems(): Promise<IBacklogItem[]>{        
-        const list = await this.backlogItemGetter.getBacklogItems();        
+   async loadBacklogItems(userId : string): Promise<IBacklogItem[]>{        
+        const list = await this.backlogItemGetter.getBacklogItems(userId);        
         return list;
     }
 

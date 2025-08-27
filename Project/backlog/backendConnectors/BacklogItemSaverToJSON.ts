@@ -1,9 +1,9 @@
-import { Utils } from "@/constants/Utils";
+import { Config } from "@/constants/Config";
 import { IBacklogItem } from "@/Models/BacklogItemModel";
 import * as FileSystem from 'expo-file-system';
 import { IBacklogItemSaver } from "./IBacklogItemSaver";
 
-const fileUri = FileSystem.documentDirectory + Utils.fileName;
+const fileUri = FileSystem.documentDirectory + Config.FileName;
 
 export class BacklogItemSaverToJSON implements IBacklogItemSaver {
 

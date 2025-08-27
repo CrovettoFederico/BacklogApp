@@ -1,4 +1,4 @@
-import { BacklogItemGetterFromJson } from "@/backendConnectors/BacklogItemGetterFromJSON";
+import { BacklogItemGetterFromAzure } from "@/backendConnectors/BacklogItemGetterFromAzure";
 import { BacklogItemSaverToJSON } from "@/backendConnectors/BacklogItemSaverToJSON";
 import { IBacklogItem } from "@/Models/BacklogItemModel";
 import { ItemsManager } from "./ItemsManager";
@@ -6,7 +6,7 @@ import { ItemsManager } from "./ItemsManager";
 export class Context{
     private static instance: Context;
     private static isInitialized: boolean = false;
-
+    public itemsLoaded : boolean = false;
     /**
      * Backlog items. Usar "AddItemToBacklog" Para agregar un item nuevo. Push no activara useEffects en otras views.
      */
@@ -53,15 +53,18 @@ export class Context{
    /**
     * Carga los items del backlog y los deja en el contexto.
     */
-    public loadBacklogItemsToContext() : void{        
-        this._itemsManager.loadBacklogItems().then((items : IBacklogItem[]) => {
+    public loadBacklogItemsToContext(userId : string) : void{        
+        console.log("Consiguiendo Backlog")
+        this._itemsManager.loadBacklogItems(userId).then((items : IBacklogItem[]) => {
             this._BacklogItems = items;            
+            this.itemsLoaded = true;
+            console.log("Backlog conseguido");
         });        
     }
     
     public static getInstance() : Context{
         if (!Context.instance) {
-            Context.instance = new Context(new ItemsManager(new BacklogItemGetterFromJson(), new BacklogItemSaverToJSON));
+            Context.instance = new Context(new ItemsManager(new BacklogItemGetterFromAzure(), new BacklogItemSaverToJSON));
             Context.isInitialized = true;
         }
         return Context.instance;

@@ -5,9 +5,9 @@ export const DefaultItems : IBacklogItem[] = [
         title: "Esto es una tarea",
         description: "Y esta su descripcion.",
         isChecked :false,
-        createdDate: new Date(),
-        finishedDate: undefined,
-        deadlineDate: undefined,
+        createdAt: new Date(),
+        finishedAt: undefined,
+        deadline: undefined,
         isOpen: false
     },
     {
@@ -15,9 +15,9 @@ export const DefaultItems : IBacklogItem[] = [
         title: "Crea tus propias tareas!",
         description: "Y cumple tus objetivos!",
         isChecked :false,
-        createdDate: new Date(new Date().toLocaleDateString("ar-es")),
-        finishedDate: undefined,        
-        deadlineDate: undefined,
+        createdAt: new Date(new Date().toLocaleDateString("ar-es")),
+        finishedAt: undefined,
+        deadline: undefined,
         isOpen: false
     }
 ]
