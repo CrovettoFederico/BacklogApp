@@ -43,7 +43,7 @@
       "router": {},
       "eas": {
         "projectId": "eba1293f-b2e2-484e-82ae-342e03c8d784"
-      },
+      },      
       "ApiUrl": "https://func-backlogapp-prod.azurewebsites.net/api/",
       "GetTasksByUser": "getTasksByUser",
       "CreateTask": "getAllTasks",

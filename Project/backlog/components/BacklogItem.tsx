@@ -32,7 +32,7 @@ export default function BacklogItem(props: BacklogItemProps){
 
   const panGesture = Gesture.Pan()
     .onUpdate((e) => {
-      position.value = Math.max(-END_POSITION, Math.min(END_POSITION, e.translationX));
+      position.value =  e.translationX;
     })
     .onEnd((e) => {
       if (position.value >= END_POSITION || position.value <= -END_POSITION) {

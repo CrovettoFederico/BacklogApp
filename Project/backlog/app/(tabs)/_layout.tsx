@@ -2,6 +2,7 @@ import { IconSymbol } from '@/components/IconSymbol';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Context } from '@/services/context';
+import * as Application from 'expo-application';
 import { Tabs } from 'expo-router';
 import React, { useEffect } from 'react';
 import { ActivityIndicator, Platform, View } from 'react-native';
@@ -14,14 +15,21 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const [loadingItems, setLoadingItems] = React.useState(true);
     
+
+  
   useEffect(() => {
       async function fetchData() {
-        Context.getInstance().loadBacklogItemsToContext("1");
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // ToDo get Phone ID
+        let phoneId = Application.getAndroidId();         
+        let user = await Context.getInstance().SaveUser(phoneId);                
+        Context.getInstance().CurrentUser = user;
+
+        await Context.getInstance().loadBacklogItemsToContext(Context.getInstance().CurrentUser.phoneId!);
         setLoadingItems(false);
       }
-      fetchData();
-    }, []);
+      if(loadingItems)
+        fetchData();
+    }, [loadingItems]);
 
   if (loadingItems) {
       return (

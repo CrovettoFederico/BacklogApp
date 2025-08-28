@@ -15,31 +15,31 @@ export function useAddFormState() {
         
     }, []);
 
-     const HandleSumbitItem =(Titulo: string, Descripcion : string, Deadline : DateType  ) : void => {
+     const HandleSumbitItem = async (Titulo: string, Descripcion : string, Deadline : DateType  ) : Promise<void> => {
         try{
-            var newId = Context.getInstance().BacklogItems.length + 1;
+            //var newId = Context.getInstance().BacklogItems.length + 1;
             
-            console.log(deadline);
-
-            Context.getInstance().addItemToBacklog({
+            await Context.getInstance().addItemToBacklog({
                 createdAt: new Date(),
                 title: Titulo,
                 description: Descripcion,
-                id : newId.toString(),
                 isChecked: false,
                 isOpen: false,
-                deadline: Deadline as Date
+                deadline: Deadline as Date,
+                userId: Context.getInstance().CurrentUser.id!,
             })
-            // Creo nuevo array para actualizar referencias y volver a renderizar en las otras views
+            // TENGO QUE VER QUE PASA EN LA API Y MEJORAR SU LOGUEOS
             
-            Context.getInstance().SaveContext();
+            //Context.getInstance().SaveContext();
+
             resetForm();
             setResult({
                 result: "success",
                 message: "Item added successfully!",
                 isShown: true
             })
-        }catch{
+        }catch (Error){
+            console.log(Error);
             setResult({
                 result: "error",
                 message: "Error adding Item :(",

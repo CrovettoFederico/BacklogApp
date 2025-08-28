@@ -14,13 +14,13 @@ export function useBacklogState(initialItems: IBacklogItem[] = []) {
         console.log("HandleUpdateItem")
         try{
             
-            const itemToUpdate = { ...item, isChecked: checked };
+            const itemToUpdate = { ...item, isFinished: checked };
             if (!itemToUpdate) {
                 console.warn(`Item with id ${item.id} not found.`);
                 return;
             }
+            console.log("Updating item: ", itemToUpdate);
             Context.getInstance().modifyBacklogItem(itemToUpdate!);
-            Context.getInstance().SaveContext();
             if (checked) {
                 setResult({
                     result: "success",
@@ -45,7 +45,8 @@ export function useBacklogState(initialItems: IBacklogItem[] = []) {
 
     const handleRemoveItem=(item : IBacklogItem)=>{
         try{
-            Context.getInstance().deleteItemFromBacklog(item);
+            const itemToUpdate = { ...item, isDeleted: true };
+            Context.getInstance().modifyBacklogItem(itemToUpdate);
             setResult({
                 result: "info",
                 message: "Item deleted.",

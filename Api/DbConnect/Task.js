@@ -4,7 +4,8 @@ const User = require("./User");
 
 const Task = sequelize.define("Task", {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER,    
+    autoIncrement: true,
     primaryKey: true
   },
   title: {
@@ -36,6 +37,10 @@ const Task = sequelize.define("Task", {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
+  isOpen: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false
@@ -47,11 +52,5 @@ const Task = sequelize.define("Task", {
 // 🔗 Relaciones
 User.hasMany(Task, { foreignKey: "userId" });
 Task.belongsTo(User, { foreignKey: "userId" });
-
-// Autoincremental simulado
-Task.beforeCreate(async (task, options) => {
-  const count = await Task.max("id") || 0;
-  task.id = count + 1;
-});
 
 module.exports = Task;

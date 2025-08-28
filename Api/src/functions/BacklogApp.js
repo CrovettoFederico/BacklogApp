@@ -20,16 +20,19 @@ app.http('BacklogApp_GetAllTasks', {
     route: "getAllTasks",
     handler: async (request, context) => {
         try{
+            context.log('Fetching all tasks from the database...');
             const tasks = await Task.findAll();
+            context.log(`Fetched ${tasks.length} tasks.`);
             return { 
                 status: 200,
                 jsonBody: tasks
             };
-        }catch{
-            context.log(`Error occurred while fetching tasks: ${error.message}`);
+        }catch(error){
+            context.error(`Error occurred while fetching tasks: ${error.message}`);
             return {
                 status: 500,
-                jsonBody: { error: 'Failed to fetch tasks' }
+                jsonBody: { error: 'Failed to fetch tasks' },
+                statusText: error.message
             };
         }
     }
@@ -41,17 +44,26 @@ app.http('BacklogApp_GetTasksByUser', {
     route: "getTasksByUser",
     handler: async (request, context) => {
         try{
-            const userId = request.params.userId;
-            const tasks = await Task.findAll({ where: { userId } });
+            const phoneId = request.params.phoneId;
+
+            context.log(`Fetching tasks for phone ID: ${phoneId}`);
+            const tasks = await Task.findAll({ 
+                include: [{
+                    model: User,
+                    where: { phoneId }
+                }]
+            });
+            context.log(`Fetched ${tasks.length} tasks for phone ID: ${phoneId}`);
             return { 
                 status: 200,
                 jsonBody: tasks
             };
-        }catch{
-            context.log(`Error occurred while fetching tasks: ${error.message}`);
+        }catch(error){
+            context.error(`Error occurred while fetching tasks: ${error.message}`);
             return {
                 status: 500,
-                jsonBody: { error: 'Failed to fetch tasks' }
+                jsonBody: { error: 'Failed to fetch tasks' },
+                statusText: error.message
             };
         }
     }
@@ -63,16 +75,19 @@ app.http('BacklogApp_GetUsers', {
     route: "getUsers",
     handler: async (request, context) => {
         try{
+            context.log('Fetching all users from the database...');
             const users = await User.findAll();
+            context.log(`Fetched ${users.length} users.`);
             return { 
                 status: 200,
                 jsonBody: users
             };
-        }catch{
-            context.log(`Error occurred while fetching users: ${error.message}`);
+        }catch(error){
+            context.error(`Error occurred while fetching users: ${error.message}`);
             return {
                 status: 500,
-                jsonBody: { error: 'Failed to fetch users' }
+                jsonBody: { error: 'Failed to fetch users' },
+                statusText: error.message
             };
         }
 
@@ -86,17 +101,21 @@ app.http('BacklogApp_PostTask', {
     route: "PostTask",
     handler: async (request, context) => {
         try{
+            
+            context.log('Creating a new task...');            
             const taskData = await request.json();
+            context.log('Task data received:', taskData);
             const task = await Task.create(taskData);
             return { 
                 status: 200,
                 jsonBody: task
             };
         }catch (error) {
-            context.log(`Error occurred while creating task: ${error.message}`);
+            context.error("Error al crear Task:", error);
             return {
                 status: 500,
-                jsonBody: { error: 'Failed to create task' }
+                jsonBody: { error: error.message },
+                statusText: error.message
             };
         }
     }
@@ -108,17 +127,32 @@ app.http('BacklogApp_PostUser', {
     route: "PostUser",
     handler: async (request, context) => {
     try{
+        
         const userData = await request.json();
+        context.log("Finding Existing User", userData);
+        const existingUser = await User.findOne({ where: { phoneId: userData.phoneId } });
+
+        if (existingUser) {
+            context.log("User already exists:", existingUser);
+            return {
+                status: 201,
+                jsonBody: existingUser,
+                statusText: 'User already exists'
+            };
+        }
+
+        context.log('Creating new user...');
         const user = await User.create(userData);
         return { 
             status: 200,
             jsonBody: user
          };
     }catch (error) {
-        context.log(`Error occurred while creating user: ${error.message}`);
+        context.error(`Error occurred while creating user: ${error.message}`);
         return {
             status: 500,
-            jsonBody: { error: 'Failed to create user' }
+            jsonBody: { error: 'Failed to create user' },
+            statusText: error.message
         };
     }
     }
@@ -130,17 +164,20 @@ app.http('BacklogApp_UpdateTask', {
     route: "UpdateTask",
     handler: async (request, context) => {
         try {
+            context.log('Updating a task...');
             const taskData = await request.json();
-
+            context.log('Task data received for update:', taskData);
             // Buscar la task por PK
             const task = await Task.findByPk(taskData.id);
+            context.log('Task found:', task);
 
             if (!task) {
-            context.res = {
-                status: 404,
-                jsonBody: { message: `Task con id ${taskData.id} no encontrada` }
-            };
-            return;
+                context.res = {
+                    status: 404,
+                    jsonBody: { message: `Task con id ${taskData.id} no encontrada` },
+                    statusText: error.message
+                };
+                return;
             }
 
             // Actualizar campos permitidos
@@ -151,18 +188,20 @@ app.http('BacklogApp_UpdateTask', {
             if (taskData.isDeleted !== undefined) task.isDeleted = taskData.isDeleted;
             if (taskData.finishedAt !== undefined) task.finishedAt = taskData.finishedAt;
 
+            context.log('Updated task data:', task);
             // Guardar cambios
             await task.save();
-
+            context.log('Task updated successfully:');
             return {
                 status: 200,
                 jsonBody: task
             };
         } catch (err) {
-            context.log.error("Error al actualizar Task:", err);
+            context.error("Error al actualizar Task:", err);
             return {
                 status: 500,
-                jsonBody: { error: err.message }
+                jsonBody: { error: err.message },
+                statusText: err.message
             };
         }
     }

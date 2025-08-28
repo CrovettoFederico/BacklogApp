@@ -1,11 +1,9 @@
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { Context } from '@/services/context';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import React from 'react';
 import 'react-native-reanimated';
 
 export default function RootLayout() {
@@ -14,6 +12,8 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
   
+  
+
   
 
 

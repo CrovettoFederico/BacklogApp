@@ -8,16 +8,18 @@ export const DefaultItems : IBacklogItem[] = [
         createdAt: new Date(),
         finishedAt: undefined,
         deadline: undefined,
-        isOpen: false
+        isOpen: false,
+        userId: "1"
     },
     {
         id: "2",
         title: "Crea tus propias tareas!",
         description: "Y cumple tus objetivos!",
         isChecked :false,
-        createdAt: new Date(new Date().toLocaleDateString("ar-es")),
+        createdAt: new Date(),
         finishedAt: undefined,
         deadline: undefined,
-        isOpen: false
+        isOpen: false,
+        userId: "1"
     }
 ]

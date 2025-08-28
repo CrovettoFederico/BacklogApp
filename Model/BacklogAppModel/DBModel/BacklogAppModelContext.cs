@@ -20,6 +20,8 @@ namespace DBModel {
                 entity.Property(e => e.Id)
                       .ValueGeneratedOnAdd(); // 👈 asegura que sea IDENTITY
             });
+            
+            modelBuilder.Entity<User>().HasIndex(u => u.PhoneId).IsUnique();
 
             modelBuilder.Entity<Models.Task>(entity =>
             {

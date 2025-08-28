@@ -24,7 +24,7 @@ export default function HomeScreen() {
         <Header Text='Pending Tasks'></Header>
         <GestureHandlerRootView>
           <View style={{backgroundColor: useThemeColor({},"mainBackground")}}>
-            {items?.filter(i=> !i.isChecked).map((item, index) => (
+            {items?.filter(i=> !i.isFinished && !i.isDeleted).map((item, index) => (
               <Animated.View key={item.id} layout={LinearTransition} >
                 <BacklogItem
                   onSwipeLeft={() => handleRemoveItem(item)}
@@ -35,7 +35,7 @@ export default function HomeScreen() {
                   }
                   }
                   isDisabled={false}
-                  isChecked={item.isChecked}
+                  isChecked={item.isFinished}
                 />
               </Animated.View>
             ))}

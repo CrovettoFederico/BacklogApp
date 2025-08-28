@@ -22,7 +22,7 @@ export default function BacklogItemContent(props: BacklogItemContentProps) {
             >
             <ThemedText>{props.item.description}</ThemedText>
             <View style={styles.containerFechas}>
-              <ThemedText style={styles.Creada}>Creada: {formatDate(props.item.createdAt)}</ThemedText>
+              <ThemedText style={styles.Creada}>Creada: {formatDate(props.item.createdAt!)}</ThemedText>
               {props.item.deadline != undefined && (
                   <ThemedText style={styles.Vence}>Vence: {formatDate(props.item.deadline!)}</ThemedText>
               )}
@@ -33,7 +33,6 @@ export default function BacklogItemContent(props: BacklogItemContentProps) {
 
 const formatDate = (date: Date): string => {
   try{
-    console.log(date)
     if(!date)
       return "";
 

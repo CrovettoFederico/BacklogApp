@@ -21,12 +21,12 @@ namespace DBModel.Models {
         public DateTime? FinishedAt { get; set; }
         public DateTime? Deadline { get; set; }
         public bool IsFinished { get; set; }
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsOpen { get; set; }
 
         [Required]
         public int UserId { get; set; }
-
-        [ForeignKey("Id")]
+                
         public virtual User User { get; set; }
 
     }

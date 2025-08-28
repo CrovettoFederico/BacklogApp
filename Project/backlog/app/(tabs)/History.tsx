@@ -25,7 +25,7 @@ export default function HomeScreen() {
         <GestureHandlerRootView>
           <View style={{backgroundColor: useThemeColor({},"mainBackground")}}>
             
-            {items?.filter(i=> i.isChecked).map((item, index) => (
+            {items?.filter(i=> i.isFinished && !i.isDeleted).map((item, index) => (
               <Animated.View key={item.id} layout={LinearTransition} >
               <BacklogItem
                 onSwipeLeft={() => handleRemoveItem(item)}
@@ -34,7 +34,7 @@ export default function HomeScreen() {
                 onValueChange={(value) => {
                   handleUpdateItem(item, value);
                 }}
-                isChecked = {item.isChecked ?? false}
+                isChecked = {item.isFinished ?? false}
                 isDisabled={false}
               />
               </Animated.View>
