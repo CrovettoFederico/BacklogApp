@@ -1,4 +1,5 @@
 import { useAddFormState } from "@/hooks/useAddFormState";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import React from "react";
 import { Button, StyleSheet, TextInput, View, type ViewProps } from "react-native";
 import DateTimePicker from 'react-native-ui-datepicker';
@@ -28,7 +29,7 @@ export default function AddForm(props: ViewProps) {
             <ThemedText>Title </ThemedText>
             <View style={styles.textbox}>
             <TextInput      
-                style={styles.textFromTextbox}            
+                style={[{backgroundColor: useThemeColor({},"formTextboxBackground")}, styles.textbox]}
                 onChangeText={onChangeTitulo}
                 value={titulo}
                 keyboardType="default"/>
@@ -38,7 +39,7 @@ export default function AddForm(props: ViewProps) {
             <ThemedText>Description: </ThemedText>
             <View style={styles.textbox}>
                 <TextInput  
-                    style={styles.textFromTextbox}
+                    style={[{backgroundColor: useThemeColor({},"formTextboxBackground")}, styles.textbox]}
                     onChangeText={onChangeDescripcion}
                     value={descripcion}
                     keyboardType="default"/>
@@ -46,10 +47,11 @@ export default function AddForm(props: ViewProps) {
             </View>
         <View style={styles.content}>
             <ThemedText>Deadline: </ThemedText>
-            <View style={styles.datePicker}>
+            <View style={[{backgroundColor: useThemeColor({},"datePickerBackgroundColor")}, styles.datePicker]}>
                 <DateTimePicker
                     styles={{
                         ...defaultStyles,
+                        
                     }}
                     locale="arg-ES"
                     containerHeight={230}
@@ -95,7 +97,6 @@ const styles = StyleSheet.create({
   textbox:{
     marginTop: InputMargin,
     paddingLeft: InputMargin,
-    backgroundColor: "#2a2936ff",
     borderRadius: 5,
   },
   textFromTextbox:{
@@ -104,7 +105,6 @@ const styles = StyleSheet.create({
   datePicker:{
     marginTop: InputMargin,
     paddingLeft: InputMargin,
-    backgroundColor: "#2a2936ff",
     borderRadius: 5,
 
   },

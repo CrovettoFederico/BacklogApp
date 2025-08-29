@@ -15,15 +15,17 @@ export const Colors = {
     icon: '#687076',
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
-    backlogBackground: '#b6afafff',    
-    backlogBackgroundWarning: '#ffcc73ff',
+    backlogBackground: '#dbd4d4ff',    
+    backlogBackgroundWarning: '#fae7a5ff',
     backlogBackgroundExpired: '#e4807eff',
     backlogBorder: '#E5E5E5',
     backlogContentBackground: "#E5E5E5",
     backgroundInputsColor: "#bcb9d7ff",       
     messageBackgroundInfo: "#bdc5c7ff",
     messageBackgroundError: "#b27475ff",
-    messageBackgroundSuccess: "#a1cd8bff"
+    messageBackgroundSuccess: "#a1cd8bff",    
+    formTextboxBackground: "#d4d3d6ff",
+    datePickerBackgroundColor: "#ffffffff"
   },
   dark: {
     text: '#ECEDEE',
@@ -41,6 +43,8 @@ export const Colors = {
     backgroundInputsColor: "#2a2936ff",
     messageBackgroundInfo: "#6b6f70ff",
     messageBackgroundError: "#783637ff",
-    messageBackgroundSuccess: "#436632ff"
+    messageBackgroundSuccess: "#436632ff",
+    formTextboxBackground: "#2a2936ff",
+    datePickerBackgroundColor: "#2a2936ff"
   },
 };

@@ -23,7 +23,7 @@ export function useAddFormState() {
                 createdAt: new Date(),
                 title: Titulo,
                 description: Descripcion,
-                isChecked: false,
+                isFinished: false,
                 isOpen: false,
                 deadline: Deadline as Date,
                 userId: Context.getInstance().CurrentUser.id!,
