@@ -26,7 +26,7 @@ const END_POSITION = 150;
 
 export default function BacklogItem(props: BacklogItemProps){
 
-  const { isOpen, isChecked, handleChecked, refDissappear, handleOpen } = useBacklogItemState(props.isChecked ?? false);
+  const { isOpen, isChecked, handleChecked, refDissappear, handleOpen } = useBacklogItemState(props.item, props.isChecked ?? false);
     
   const position = useSharedValue(0);
 
@@ -49,11 +49,32 @@ export default function BacklogItem(props: BacklogItemProps){
     const swipeOpacity = 1 - (distance / END_POSITION) * 0.8;
     // Fade out por check
     const checkOpacity = typeof refDissappear === 'number' ? refDissappear : refDissappear.value;
-    return {
+    
+        return {
       transform: [{ translateX: position.value }],
       opacity: Math.max(swipeOpacity, 0.2) * checkOpacity, // <-- combinación
     };
   });
+
+  let backgroundColor;
+  const inThreeDays = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000);
+
+  if(props.item.deadline){
+      const deadlineDate = new Date(props.item.deadline!);
+      if(deadlineDate > new Date() && deadlineDate <= inThreeDays){
+          backgroundColor = useThemeColor({},"backlogBackgroundWarning");
+      }
+
+      if(deadlineDate < new Date()){
+          backgroundColor = useThemeColor({},"backlogBackgroundExpired");
+      }
+
+      if(deadlineDate > inThreeDays || props.item.isFinished){
+          backgroundColor = useThemeColor({},"backlogBackground");
+      }
+  }else{
+      backgroundColor = useThemeColor({},"backlogBackground");
+  }
 
 
     return (
@@ -68,7 +89,7 @@ export default function BacklogItem(props: BacklogItemProps){
                   <View style={[
                       styles.backlogItem,
                       props.style,
-                      {backgroundColor: useThemeColor({},"backlogBackground")},
+                      {backgroundColor: backgroundColor},
                       {borderColor: useThemeColor({},"backlogBorder")}    
                       ]}
                   >   
@@ -94,6 +115,9 @@ export default function BacklogItem(props: BacklogItemProps){
 
 }
   
+
+
+
 const styles = StyleSheet.create({
   backlogItem: {
     flex: 1, 

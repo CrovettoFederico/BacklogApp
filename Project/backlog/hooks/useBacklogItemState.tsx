@@ -1,3 +1,4 @@
+import { IBacklogItem } from '@/Models/BacklogItemModel';
 import { useEffect, useState } from 'react';
 import { runOnJS, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -6,10 +7,11 @@ type BacklogItemState = {
     isOpen: boolean
 };
 
-export function useBacklogItemState(_isChecked?: boolean) {
+export function useBacklogItemState(item: IBacklogItem, _isChecked?: boolean) {
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setChecked] = useState(_isChecked ?? false);
     const refDissappear = useSharedValue(1);
+    
     
     useEffect(()=>{
         
@@ -38,6 +40,6 @@ export function useBacklogItemState(_isChecked?: boolean) {
         isChecked,
         refDissappear,        
         handleChecked,
-        handleOpen 
+        handleOpen,
     };
 }
