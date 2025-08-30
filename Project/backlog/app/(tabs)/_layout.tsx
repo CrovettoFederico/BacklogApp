@@ -1,44 +1,32 @@
 import { IconSymbol } from '@/components/IconSymbol';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Context } from '@/services/context';
-import * as Application from 'expo-application';
+import { use_TabLayoutState } from '@/hooks/use_TabLayoutState';
 import { Tabs } from 'expo-router';
-import React, { useEffect } from 'react';
-import { ActivityIndicator, Platform, View } from 'react-native';
+import React from 'react';
+import { ActivityIndicator, Button, Platform, View } from 'react-native';
 
 export const unstable_settings = {
   initialRouteName: 'index',
 };
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const [loadingItems, setLoadingItems] = React.useState(true);
-    
-
-  
-  useEffect(() => {
-      async function fetchData() {
-        // ToDo get Phone ID
-        let phoneId = Application.getAndroidId();         
-        let user = await Context.getInstance().SaveUser(phoneId);                
-        Context.getInstance().CurrentUser = user;
-
-        await Context.getInstance().loadBacklogItemsToContext(Context.getInstance().CurrentUser.phoneId!);
-        setLoadingItems(false);
-      }
-      if(loadingItems)
-        fetchData();
-    }, [loadingItems]);
+  const { loadingItems, setLoadingItems, error, setError, colorScheme,fetchData } = use_TabLayoutState();
 
   if (loadingItems) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size="large" />
-        </View>
-      );
+      if(error){
+        return (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Button onPress={() => fetchData()} title="Retry"/>
+          </View>
+        );
+      }else{
+        return (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" />
+          </View>
+        );
+      }      
     }
-
 
   return (
     
