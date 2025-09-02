@@ -1,0 +1,69 @@
+{
+  "expo": {
+    "name": "backlog",
+    "slug": "backlog",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/logo.png",
+    "scheme": "backlog",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.fedecrovetto.MinimalistBacklog"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/logo.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/logo-transparent.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-dev-client",
+        {
+          "launchMode": "most-recent"
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.994492199508-6t7nmvl8rbsumib3iq0m1k3eqhmhqnj4"          
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "eba1293f-b2e2-484e-82ae-342e03c8d784"
+      },      
+      "ApiUrl": "https://func-backlogapp-prod.azurewebsites.net/api/",
+      "GetTasksByUser": "getTasksByUser",
+      "CreateTask": "getAllTasks",
+      "UpdateTask": "UpdateTask",
+      "PostUser": "PostUser",
+      "PostTask": "PostTask",
+      "FileName": "backlogItems.json",
+      "GoogleClientID": "994492199508-65j4cn8hb7h36aslesl4p6583hpbg97j.apps.googleusercontent.com"      
+    }
+  }
+}
